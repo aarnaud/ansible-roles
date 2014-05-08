@@ -27,4 +27,27 @@ roles_path    = ansible-roles
 
 ## In a project 
 
-TODO:
+### in git project
+
+`git submodule add git@github.com:aarnaud/ansible-roles.git ansible-roles`
+
+### in other project 
+
+ `git clone git@github.com:aarnaud/ansible-roles.git ansible-roles`
+
+### first playbook:
+
+myplaybook.yml:
+````
+---
+
+- name: First exemple
+  hosts: all
+  user: root
+
+  roles:
+    - common
+    - nginx
+    - nodejs
+    - shorewall
+````
