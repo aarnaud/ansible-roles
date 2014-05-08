@@ -1,0 +1,4 @@
+---
+
+- name: Restart service shorewall
+  service: name=shorewall state=restarted enabled=yes

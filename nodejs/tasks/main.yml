@@ -1,0 +1,12 @@
+---
+
+- name: Add nginx repository
+  action: apt_repository repo='ppa:chris-lea/node.js'
+  when: ansible_distribution == "Ubuntu"
+
+
+- name: Install nodejs packages
+  action: apt pkg={{item}} state=latest update-cache=yes
+  with_items:
+    - nodejs
+  when: ansible_distribution == "Ubuntu"

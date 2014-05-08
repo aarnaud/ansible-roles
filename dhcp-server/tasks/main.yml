@@ -1,0 +1,13 @@
+---
+
+- name: Install isc-dhcp-server
+  action: apt pkg={{item}} state=latest update-cache=yes
+  with_items:
+    - isc-dhcp-server
+
+- name: "Configure interface listener fo dhcp"
+  action: lineinfile dest=/etc/default/isc-dhcp-server regexp=^INTERFACES= line=INTERFACES=\"{{internalPort}}\"
+
+- name: "template dhcpd.conf"
+  action: template src=dhcpd.conf.j2 dest=/etc/dhcp/dhcpd.conf owner=root group=root mode=0644 backup=no
+  notify: Restart service dhcp-server

@@ -1,0 +1,4 @@
+---
+
+- name: Enable IP forward
+  action: sysctl name="net.ipv4.ip_forward" value=1 state=present reload=yes

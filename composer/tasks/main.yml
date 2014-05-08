@@ -1,0 +1,11 @@
+---
+
+- name: Install composer
+  shell:
+    if [ ! -x /usr/local/bin/composer ]; then
+    cd /tmp && curl -sS https://getcomposer.org/installer | /usr/bin/php && /bin/mv -f /tmp/composer.phar /usr/local/bin/composer;
+    composer config --global bin-dir /usr/local/bin;
+    composer config --global vendor-dir /opt/vendor;
+    composer config --global preferred-install dist;
+    fi
+  tags: composer

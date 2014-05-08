@@ -1,0 +1,11 @@
+---
+
+- name: Add nginx repository
+  action: apt_repository repo='ppa:nginx/stable'
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install nginx server
+  action: apt pkg={{item}} state=latest update-cache=yes
+  with_items:
+    - nginx
+  tags: nginx

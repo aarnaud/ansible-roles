@@ -1,0 +1,6 @@
+---
+
+- name: "Install java"
+  action: apt pkg={{item}} state=latest update-cache=yes
+  with_items:
+    - openjdk-7-jdk

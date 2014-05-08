@@ -1,0 +1,14 @@
+---
+
+- name: Install apache2
+  action: apt pkg={{item}} state=latest update-cache=yes
+  with_items:
+    - apache2
+
+# - name: "Change apache configuration: ports.conf"
+#   action: template src=ports.conf.j2 dest=/etc/apache2/ports.conf owner=root group=root mode=0644 backup=yes
+#   notify: Restart service apache2
+
+- name: "Activate apache rewrite module"
+  action: command a2enmod rewrite
+  notify: Restart service apache2

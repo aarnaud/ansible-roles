@@ -1,0 +1,46 @@
+---
+
+- name: Install php5
+  action: apt pkg={{item}} state=latest update-cache=yes
+  with_items:
+    - php5
+    - libapache2-mod-php5
+    - php-pear
+    - php5-dev
+    - php5-mysql
+    - php5-curl
+    - php5-cli
+    - php5-intl
+    - php5-xsl
+    - php5-gd
+    - php-apc
+    - php5-redis
+  tags: php5
+
+- name: "Change php date.timezone for php-cli"
+  action: lineinfile dest=/etc/php5/cli/php.ini state=present regexp="date.timezone =" line="date.timezone = {{phpDateTimezone}}"
+  when: phpDateTimezone is defined
+
+#TODO: non compatible si apache n'est pas installé
+- name: "Change php date.timezone for libapache2-mod-php5"
+  action: lineinfile dest=/etc/php5/apache2/php.ini state=present regexp="date.timezone =" line="date.timezone = {{phpDateTimezone}}"
+  when: phpDateTimezone is defined
+
+- name: Install php5-xdebug
+  action: apt pkg={{item}} state=latest update-cache=yes
+  with_items:
+    - php5-xdebug
+  when: env != "prod"
+  tags: php5
+
+- name: "Configure xdebug"
+  action: lineinfile dest=/etc/php5/mods-available/xdebug.ini state=present regexp='^{{item}}' line='{{item}}'
+  with_items:
+    - 'xdebug.remote_enable=On'
+    - 'xdebug.remote_log=/var/log/apache2/xdebug.log'
+    - 'xdebug.remote_handler=dbgp'
+    - 'xdebug.remote_mode=req'
+    - 'xdebug.remote_connect_back=1'
+    - 'xdebug.remote_port=9000'
+  when: env != "prod"
+  tags: php5

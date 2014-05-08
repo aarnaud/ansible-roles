@@ -1,0 +1,33 @@
+---
+
+- name: add the official rabbitmq repository's key
+  action: apt_key url=https://www.rabbitmq.com/rabbitmq-signing-key-public.asc state=present
+
+- name: add the official rabbitmq repository
+  action: copy src=rabbitmq.list dest=/etc/apt/sources.list.d/ backup=no
+  register: aptrepo
+
+- name: refresh apt cache
+  action: apt update_cache=yes
+  when: aptrepo.changed
+
+- name: install rabbitmq-server
+  action: apt name=rabbitmq-server state=present
+
+- name: Start rabbitmq-server
+  action: service name=rabbitmq-server state=started
+
+- name: Add rabbitmq_management plugin
+  action: rabbitmq_plugin names=rabbitmq_management state=enabled
+
+- name: Remove guest user in rabbitmq-server
+  action: rabbitmq_user user=guest state=absent
+
+- rabbitmq_user: user={{ rabbitmqUser }}
+                 password={{ rabbitmqPassword }}
+                 vhost=/
+                 configure_priv=.*
+                 read_priv=.*
+                 write_priv=.*
+                 tags=administrator
+                 state=present

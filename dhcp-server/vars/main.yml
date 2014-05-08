@@ -1,0 +1,6 @@
+internalPort: eth1
+internalNetwork: 192.168.0.0
+internalNetmask: 255.255.255.0
+internalDHCPstart: 192.168.0.3
+internalDHCPstop: 192.168.0.253
+internalDomain: mydomain.net

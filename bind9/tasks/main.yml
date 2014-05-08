@@ -1,0 +1,9 @@
+---
+
+- name: Install bind9 server
+  action: apt pkg={{item}} state=latest update-cache=yes
+  with_items:
+    - bind9
+    - dnsutils
+  notify: Restart service bind9
+

@@ -1,0 +1,19 @@
+---
+
+- name: Install mysql server
+  action: apt pkg={{item}} state=latest update-cache=yes
+  with_items:
+    - mysql-server
+    - python-mysqldb # for ansible module
+  tags: mysql
+
+- name: "Set root password for mysql"
+  action: mysql_user name=root password={{database_root_password}} host={{item}} priv=*.*:ALL,GRANT check_implicit_admin=yes
+  with_items:
+        - 127.0.0.1
+        - "%"
+        - localhost
+
+- name: "Change mysql user configuration: .my.cnf"
+  action: template src=.my.cnf.j2 dest=~/.my.cnf owner=root group=root mode=0644 backup=yes
+  notify: Restart service mysql

@@ -1,0 +1,6 @@
+---
+
+- name: "Install redis server"
+  action: apt pkg={{item}} state=latest update-cache=yes
+  with_items:
+    - redis-server

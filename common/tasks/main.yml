@@ -1,0 +1,49 @@
+---
+
+- name: Install git
+  action: apt pkg={{item}} state=latest update-cache=yes
+  with_items:
+    - git
+    - git-flow
+  tags: git
+
+- name: Install monitoring tools
+  action: apt pkg={{item}} state=latest update-cache=yes
+  with_items:
+    - htop
+    - iftop
+    - iotop
+    - sysstat
+    - ncdu
+    - supervisor
+  tags: monitoring-tools
+
+- name: Install user tools
+  action: apt pkg={{item}} state=latest update-cache=yes
+  with_items:
+    - bash-completion
+    - sudo
+    - screen
+    - nano
+    - vim
+    - wget
+    - curl
+    - sshfs
+    - lynx
+    - elinks
+  tags: user-tools
+
+- name: Install dev tools
+  action: apt pkg={{item}} state=latest update-cache=yes
+  with_items:
+    - python-software-properties
+    - software-properties-common
+    - build-essential
+  tags: dev-tools
+
+- name: Install server tools
+  action: apt pkg={{item}} state=latest update-cache=yes
+  with_items:
+    - ntp
+    - acl
+  tags: server-tools

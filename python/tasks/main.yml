@@ -1,0 +1,8 @@
+---
+
+- name: "Install python"
+  action: apt pkg={{item}} state=latest update-cache=yes
+  with_items:
+    - python-dev
+    - python-pip
+  tags: python

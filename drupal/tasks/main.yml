@@ -1,0 +1,6 @@
+---
+
+- name: Install drupal tools
+  shell:
+    composer global require drush/drush:6.* && drush
+  tags: drupal

@@ -1,0 +1,19 @@
+---
+
+- name: "Install ruby"
+  action: apt pkg={{item}} state=latest update-cache=yes
+  with_items:
+    - ruby1.9.3
+  when: ansible_distribution == "Debian"
+
+- name: "Install ruby"
+  action: apt pkg={{item}} state=latest update-cache=yes
+  with_items:
+    - ruby2.0
+  when: ansible_distribution == "Ubuntu"
+
+- name: "Install rubygems"
+  action: apt pkg={{item}} state=latest update-cache=yes
+  with_items:
+    - rubygems
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu" and ansible_distribution_version < 14.04

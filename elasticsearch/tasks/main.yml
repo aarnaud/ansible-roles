@@ -1,0 +1,14 @@
+---
+
+# Optimiser l'installation : curl -XGET "http://192.168.1.148:9200/" | grep number
+- name: Fetch elastic search package
+  command: wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-{{elasticsearch_version}}.deb
+
+- name: Install elastic search
+  command: dpkg -i elasticsearch-{{elasticsearch_version}}.deb
+
+- name: Start elastic search
+  command: service elasticsearch start
+
+- name: Cleanup
+  command: rm -rf elasticsearch-{{elasticsearch_version}}.deb

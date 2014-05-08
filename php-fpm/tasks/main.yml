@@ -1,0 +1,12 @@
+---
+
+- name: Install php-fpm server
+  action: apt pkg={{item}} state=latest update-cache=yes
+  with_items:
+    - php5-fpm
+  tags: php-fpm
+
+- name: "Change php date.timezone for php-fpm"
+  action: lineinfile dest=/etc/php5/fpm/php.ini state=present regexp="^;date.timezone =" line="date.timezone = {{phpDateTimezone}}"
+  when: phpDateTimezone is defined
+

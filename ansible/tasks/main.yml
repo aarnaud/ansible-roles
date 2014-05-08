@@ -1,0 +1,7 @@
+---
+
+- name: Install ansible
+  action: pip name={{item}}
+  with_items:
+    - ansible
+  tags: ansible

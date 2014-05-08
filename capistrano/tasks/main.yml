@@ -1,0 +1,8 @@
+---
+
+- name: "Install capistrano"
+  gem: name={{item}} state=present user_install=no
+  with_items:
+    - capistrano
+    - capistrano-deploy-strategy-archive
+  tags: capistrano
