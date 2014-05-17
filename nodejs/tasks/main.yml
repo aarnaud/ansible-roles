@@ -1,6 +1,6 @@
 ---
 
-- name: Add nginx repository
+- name: Add nodejscd ans   repository
   action: apt_repository repo='ppa:chris-lea/node.js'
   when: ansible_distribution == "Ubuntu"
 
