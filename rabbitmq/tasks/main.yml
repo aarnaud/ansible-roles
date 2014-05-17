@@ -23,7 +23,8 @@
 - name: Remove guest user in rabbitmq-server
   action: rabbitmq_user user=guest state=absent
 
-- rabbitmq_user: user={{ rabbitmqUser }}
+- name: Remove guest user in rabbitmq-server
+  rabbitmq_user: user={{ rabbitmqUser }}
                  password={{ rabbitmqPassword }}
                  vhost=/
                  configure_priv=.*
@@ -31,3 +32,4 @@
                  write_priv=.*
                  tags=administrator
                  state=present
+  notify: Restart service rabbitmq-server
